@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import app from './firebase/firebase.init';
+import './App.css';
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
 
 const auth = getAuth(app);
@@ -32,16 +33,23 @@ const App = () => {
       });
   }
   return (
-    <div>
+    <div className='App'>
       <div>
-        <button onClick={handleGoogleSingIn}>AddToGoogleSignIn</button>
-        <br />
-        <button onClick={handleSingOut}>Sign Out</button>
-        <div>
-          <h3>Name: {user.displayName}</h3>
-          <p>Email: {user.email}</p>
-          <img src={user.photoURL} alt="" />
-        </div>
+        {
+          user.email ?
+            <button onClick={handleSingOut}>Sign Out</button>
+            :
+            <button onClick={handleGoogleSingIn}>AddToGoogleSignIn</button>
+
+
+        }
+        {user.email &&
+          <div>
+            <h3>Name: {user.displayName}</h3>
+            <p>Email: {user.email}</p>
+            <img src={user.photoURL} alt="" />
+          </div>
+        }
       </div>
     </div>
   );
